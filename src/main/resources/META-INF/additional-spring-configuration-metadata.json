@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "app.oidc_issuer_location",
+      "type": "java.lang.String",
+      "description": "Description for app.oidc_issuer_location."
+    },
+    {
+      "name": "app.oidc_client_id",
+      "type": "java.lang.String",
+      "description": "Description for app.oidc_client_id."
+    },
+    {
+      "name": "app.oidc_audience",
+      "type": "java.lang.String",
+      "description": "Description for app.oidc_audience."
+    }
+  ] }
