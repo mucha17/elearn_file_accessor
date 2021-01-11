@@ -59,7 +59,7 @@ public class DocumentTest {
         String id = gridFsTemplate.store(inputStream, "test.png", "application/pdf", metaData).toString();
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
         Assertions.assertNotNull(file);
-        Document document = new Document("test", false, DocumentProvider.REMOTE, DocumentType.PDF);
+        Document document = new Document("test", false, DocumentProvider.LOCAL, DocumentType.PDF);
         document.setTitle(file.getMetadata().get("title").toString());
         document.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
         this.documentRepository.save(document);
