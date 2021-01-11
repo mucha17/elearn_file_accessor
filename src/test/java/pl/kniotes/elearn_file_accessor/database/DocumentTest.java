@@ -52,11 +52,11 @@ public class DocumentTest {
     }
 
     @Test
-    public void addLocalImageAndGetUrl() throws FileNotFoundException {
+    public void addLocalDocumentAndGetUrl() throws FileNotFoundException {
         InputStream inputStream = new FileInputStream("src/test/resources/test.pdf");
         DBObject metaData = new BasicDBObject();
         metaData.put("title", "Tytuł dokumentu");
-        String id = gridFsTemplate.store(inputStream, "test.png", "image/png", metaData).toString();
+        String id = gridFsTemplate.store(inputStream, "test.png", "application/pdf", metaData).toString();
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
         Assertions.assertNotNull(file);
         Document document = new Document("test", false, DocumentProvider.REMOTE, DocumentType.PDF);
@@ -67,10 +67,10 @@ public class DocumentTest {
     }
 
     @Test
-    public void addRemoteImageAndGetUrl() {
+    public void addRemoteDocumentAndGetUrl() {
         Document document = new Document("test", false, DocumentProvider.REMOTE, DocumentType.PDF);
         document.setTitle("Testowy dokument");
-        document.setUrl("we.umg.edu.pl/sites/default/files/zalaczniki/umg-informator-2020.pdf");
+        document.setUrl("http://we.umg.edu.pl/sites/default/files/zalaczniki/umg-informator-2020.pdf");
         String id = this.documentRepository.save(document).getId();
         document = this.documentRepository.findDocumentById(id);
         Assertions.assertNotNull(document);

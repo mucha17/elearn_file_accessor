@@ -61,7 +61,7 @@ public class VideoTest {
         Assertions.assertNotNull(file);
         Video video = new Video("test", false, VideoProvider.LOCAL, VideoType.MP4);
         video.setTitle(file.getMetadata().get("title").toString());
-        video.setUrl("http://localhost:8080/api/files" + file.getId().asObjectId().getValue().toString());
+        video.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
         this.videoRepository.save(video);
         System.out.println(video.getUrl());
     }

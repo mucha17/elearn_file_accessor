@@ -52,11 +52,11 @@ public class AudioTest {
     }
 
     @Test
-    public void addLocalImageAndGetUrl() throws FileNotFoundException {
+    public void addLocalAudioAndGetUrl() throws FileNotFoundException {
         InputStream inputStream = new FileInputStream("src/test/resources/test.mp3");
         DBObject metaData = new BasicDBObject();
         metaData.put("title", "Tytuł klipu audio");
-        String id = gridFsTemplate.store(inputStream, "test.mp3", "audio/mp3", metaData).toString();
+        String id = gridFsTemplate.store(inputStream, "test.mp3", "audio/mpeg", metaData).toString();
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
         Assertions.assertNotNull(file);
         Audio audio = new Audio("test", false, AudioProvider.LOCAL, AudioType.MP3);
@@ -67,7 +67,7 @@ public class AudioTest {
     }
 
     @Test
-    public void addRemoteImageAndGetUrl() {
+    public void addRemoteAudioAndGetUrl() {
         Audio audio = new Audio("test", false, AudioProvider.REMOTE, AudioType.MP3);
         audio.setTitle("Testowy klip audio");
         audio.setUrl("https://sampleswap.org/samples-ghost/INSTRUMENTS%20(MULTISAMPLED)/GUITAR/Nylon%20Guitar%20Chords/2374[kb]NylonChordA7-01.wav.mp3");
