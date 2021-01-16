@@ -3,16 +3,16 @@
     {
       "name": "app.oidc_issuer_location",
       "type": "java.lang.String",
-      "description": "Description for app.oidc_issuer_location."
+      "description": "Location of OAuth2 OpenID Connect Issuer."
     },
     {
       "name": "app.oidc_client_id",
       "type": "java.lang.String",
-      "description": "Description for app.oidc_client_id."
+      "description": "Client ID of OAuth2 OpenID Connect Server."
     },
     {
       "name": "app.oidc_audience",
       "type": "java.lang.String",
-      "description": "Description for app.oidc_audience."
+      "description": "Required OAuth2 OpenID Connect audience in JWT."
     }
   ] }
