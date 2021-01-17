@@ -7,4 +7,6 @@ import pl.kniotes.elearn_file_accessor.Models.Image.Image;
 @Repository
 public interface ImageRepository extends MongoRepository<Image, String> {
     Image findImageById(String id);
+
+    Image deleteImageById(String id);
 }

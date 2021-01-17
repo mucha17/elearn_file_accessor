@@ -7,4 +7,6 @@ import pl.kniotes.elearn_file_accessor.Models.Video.Video;
 @Repository
 public interface VideoRepository extends MongoRepository<Video, String> {
     Video findVideoById(String id);
+
+    Video deleteVideoById(String id);
 }

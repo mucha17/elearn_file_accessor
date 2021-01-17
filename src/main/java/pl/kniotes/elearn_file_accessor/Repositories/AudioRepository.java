@@ -7,4 +7,6 @@ import pl.kniotes.elearn_file_accessor.Models.Audio.Audio;
 @Repository
 public interface AudioRepository extends MongoRepository<Audio, String> {
     Audio findAudioById(String id);
+
+    Audio deleteAudioById(String id);
 }

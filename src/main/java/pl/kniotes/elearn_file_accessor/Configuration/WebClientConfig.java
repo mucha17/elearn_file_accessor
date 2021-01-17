@@ -19,8 +19,9 @@ public class WebClientConfig {
 
     @Bean
     public WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository oAuth2AuthorizedClientRepository) {
+        String clientId = Objects.requireNonNull(env.getProperty("app.oidc_client_id"));
         ServletOAuth2AuthorizedClientExchangeFilterFunction filterFunction = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, oAuth2AuthorizedClientRepository);
-        filterFunction.setDefaultClientRegistrationId(Objects.requireNonNull(env.getProperty("app.oidc_client_id")));
+        filterFunction.setDefaultClientRegistrationId(clientId);
         return WebClient.builder().apply(filterFunction.oauth2Configuration()).build();
     }
 }

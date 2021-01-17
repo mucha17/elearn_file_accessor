@@ -7,4 +7,6 @@ import pl.kniotes.elearn_file_accessor.Models.Document.Document;
 @Repository
 public interface DocumentRepository extends MongoRepository<Document, String> {
     Document findDocumentById(String id);
+
+    Document deleteDocumentById(String id);
 }

@@ -21,6 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //        @formatter:off
         httpSecurity.cors().and()
+                .csrf().disable()
                 .authorizeRequests()
                 .anyRequest().permitAll();
 //                .authenticated()
@@ -35,8 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Environment env;
 
     private JwtDecoder jwtDecoder() {
-        NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromOidcIssuerLocation(Objects.requireNonNull(env.getProperty("app.oidc_issuer_location")));
-        OAuth2TokenValidator<Jwt> defaultValidators = JwtValidators.createDefaultWithIssuer(Objects.requireNonNull(env.getProperty("app.oidc_issuer_location")));
+        String issuerLocation = Objects.requireNonNull(env.getProperty("app.oidc_issuer_location"));
+        NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromOidcIssuerLocation(issuerLocation);
+        OAuth2TokenValidator<Jwt> defaultValidators = JwtValidators.createDefaultWithIssuer(Objects.requireNonNull(issuerLocation));
         OAuth2TokenValidator<Jwt> delegatingValidator = new DelegatingOAuth2TokenValidator<>(defaultValidators, new KniotesJwtTokenValidator());
         decoder.setJwtValidator(delegatingValidator);
         return decoder;

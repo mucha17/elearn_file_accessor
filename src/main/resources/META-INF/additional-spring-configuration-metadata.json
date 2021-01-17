@@ -14,5 +14,10 @@
       "name": "app.oidc_audience",
       "type": "java.lang.String",
       "description": "Required OAuth2 OpenID Connect audience in JWT."
+    },
+    {
+      "name": "app.hyperlink",
+      "type": "java.lang.String",
+      "description": "Hyperlink to the application."
     }
   ] }
