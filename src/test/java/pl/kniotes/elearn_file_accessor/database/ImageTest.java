@@ -51,29 +51,29 @@ public class ImageTest {
         this.gridFsTemplate.delete(new Query(Criteria.where("_id").exists(true)));
     }
 
-    @Test
-    public void addLocalImageAndGetUrl() throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream("src/test/resources/test.png");
-        DBObject metaData = new BasicDBObject();
-        metaData.put("title", "Tytuł zdjęcia");
-        String id = gridFsTemplate.store(inputStream, "test.png", "image/png", metaData).toString();
-        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-        Assertions.assertNotNull(file);
-        Image image = new Image("test", false, ImageProvider.LOCAL, ImageType.PNG);
-        image.setTitle(file.getMetadata().get("title").toString());
-        image.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
-        this.imageRepository.save(image);
-        System.out.println(image.getUrl());
-    }
+//    @Test
+//    public void addLocalImageAndGetUrl() throws FileNotFoundException {
+//        InputStream inputStream = new FileInputStream("src/test/resources/test.png");
+//        DBObject metaData = new BasicDBObject();
+//        metaData.put("title", "Tytuł zdjęcia");
+//        String id = gridFsTemplate.store(inputStream, "test.png", "image/png", metaData).toString();
+//        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
+//        Assertions.assertNotNull(file);
+//        Image image = new Image("test", false, ImageProvider.LOCAL, ImageType.PNG);
+//        image.setTitle(file.getMetadata().get("title").toString());
+//        image.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
+//        this.imageRepository.save(image);
+//        System.out.println(image.getUrl());
+//    }
 
-    @Test
-    public void addRemoteImageAndGetUrl() {
-        Image image = new Image("test", false, ImageProvider.REMOTE, ImageType.SVG);
-        image.setTitle("Testowe zdjęcie");
-        image.setUrl("https://www.baeldung.com/wp-content/themes/baeldung/icon/logo.svg");
-        String id = this.imageRepository.save(image).getId();
-        image = this.imageRepository.findImageById(id);
-        Assertions.assertNotNull(image);
-        System.out.println(image.getUrl());
-    }
+//    @Test
+//    public void addRemoteImageAndGetUrl() {
+//        Image image = new Image("test", false, ImageProvider.REMOTE, ImageType.SVG);
+//        image.setTitle("Testowe zdjęcie");
+//        image.setUrl("https://www.baeldung.com/wp-content/themes/baeldung/icon/logo.svg");
+//        String id = this.imageRepository.save(image).getId();
+//        image = this.imageRepository.findImageById(id);
+//        Assertions.assertNotNull(image);
+//        System.out.println(image.getUrl());
+//    }
 }

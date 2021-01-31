@@ -51,29 +51,29 @@ public class AudioTest {
         this.gridFsTemplate.delete(new Query(Criteria.where("_id").exists(true)));
     }
 
-    @Test
-    public void addLocalAudioAndGetUrl() throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream("src/test/resources/test.mp3");
-        DBObject metaData = new BasicDBObject();
-        metaData.put("title", "Tytuł klipu audio");
-        String id = gridFsTemplate.store(inputStream, "test.mp3", "audio/mpeg", metaData).toString();
-        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-        Assertions.assertNotNull(file);
-        Audio audio = new Audio("test", false, AudioProvider.LOCAL, AudioType.MP3);
-        audio.setTitle(file.getMetadata().get("title").toString());
-        audio.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
-        this.audioRepository.save(audio);
-        System.out.println(audio.getUrl());
-    }
+//    @Test
+//    public void addLocalAudioAndGetUrl() throws FileNotFoundException {
+//        InputStream inputStream = new FileInputStream("src/test/resources/test.mp3");
+//        DBObject metaData = new BasicDBObject();
+//        metaData.put("title", "Tytuł klipu audio");
+//        String id = gridFsTemplate.store(inputStream, "test.mp3", "audio/mpeg", metaData).toString();
+//        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
+//        Assertions.assertNotNull(file);
+//        Audio audio = new Audio("test", false, AudioProvider.LOCAL, AudioType.MP3);
+//        audio.setTitle(file.getMetadata().get("title").toString());
+//        audio.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
+//        this.audioRepository.save(audio);
+//        System.out.println(audio.getUrl());
+//    }
 
-    @Test
-    public void addRemoteAudioAndGetUrl() {
-        Audio audio = new Audio("test", false, AudioProvider.REMOTE, AudioType.MP3);
-        audio.setTitle("Testowy klip audio");
-        audio.setUrl("https://sampleswap.org/samples-ghost/INSTRUMENTS%20(MULTISAMPLED)/GUITAR/Nylon%20Guitar%20Chords/2374[kb]NylonChordA7-01.wav.mp3");
-        String id = this.audioRepository.save(audio).getId();
-        audio = this.audioRepository.findAudioById(id);
-        Assertions.assertNotNull(audio);
-        System.out.println(audio.getUrl());
-    }
+//    @Test
+//    public void addRemoteAudioAndGetUrl() {
+//        Audio audio = new Audio("test", false, AudioProvider.REMOTE, AudioType.MP3);
+//        audio.setTitle("Testowy klip audio");
+//        audio.setUrl("https://sampleswap.org/samples-ghost/INSTRUMENTS%20(MULTISAMPLED)/GUITAR/Nylon%20Guitar%20Chords/2374[kb]NylonChordA7-01.wav.mp3");
+//        String id = this.audioRepository.save(audio).getId();
+//        audio = this.audioRepository.findAudioById(id);
+//        Assertions.assertNotNull(audio);
+//        System.out.println(audio.getUrl());
+//    }
 }

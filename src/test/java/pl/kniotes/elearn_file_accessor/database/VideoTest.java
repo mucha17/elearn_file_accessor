@@ -51,29 +51,29 @@ public class VideoTest {
         this.gridFsTemplate.delete(new Query(Criteria.where("_id").exists(true)));
     }
 
-    @Test
-    public void addLocalVideoAndGetUrl() throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream("src/test/resources/test.mp4");
-        DBObject metaData = new BasicDBObject();
-        metaData.put("title", "Tytuł video");
-        String id = gridFsTemplate.store(inputStream, "test.mp4", "video/mp4", metaData).toString();
-        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-        Assertions.assertNotNull(file);
-        Video video = new Video("test", false, VideoProvider.LOCAL, VideoType.MP4);
-        video.setTitle(file.getMetadata().get("title").toString());
-        video.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
-        this.videoRepository.save(video);
-        System.out.println(video.getUrl());
-    }
+//    @Test
+//    public void addLocalVideoAndGetUrl() throws FileNotFoundException {
+//        InputStream inputStream = new FileInputStream("src/test/resources/test.mp4");
+//        DBObject metaData = new BasicDBObject();
+//        metaData.put("title", "Tytuł video");
+//        String id = gridFsTemplate.store(inputStream, "test.mp4", "video/mp4", metaData).toString();
+//        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
+//        Assertions.assertNotNull(file);
+//        Video video = new Video("test", false, VideoProvider.LOCAL, VideoType.MP4);
+//        video.setTitle(file.getMetadata().get("title").toString());
+//        video.setUrl("http://localhost:8080/api/files/" + file.getId().asObjectId().getValue().toString());
+//        this.videoRepository.save(video);
+//        System.out.println(video.getUrl());
+//    }
 
-    @Test
-    public void addYoutubeVideoAndGetUrl() {
-        Video video = new Video("test", false, VideoProvider.YOUTUBE, VideoType.MP4);
-        video.setTitle("Testowe video");
-        video.setUrl("https://youtu.be/OgfyAZJQFhg?list=PL5jZApaR4GDPj2TzKPGu5vmqRY52c4lMp");
-        String id = this.videoRepository.save(video).getId();
-        video = this.videoRepository.findVideoById(id);
-        Assertions.assertNotNull(video);
-        System.out.println(video.getUrl());
-    }
+//    @Test
+//    public void addYoutubeVideoAndGetUrl() {
+//        Video video = new Video("test", false, VideoProvider.YOUTUBE, VideoType.MP4);
+//        video.setTitle("Testowe video");
+//        video.setUrl("https://youtu.be/OgfyAZJQFhg?list=PL5jZApaR4GDPj2TzKPGu5vmqRY52c4lMp");
+//        String id = this.videoRepository.save(video).getId();
+//        video = this.videoRepository.findVideoById(id);
+//        Assertions.assertNotNull(video);
+//        System.out.println(video.getUrl());
+//    }
 }
